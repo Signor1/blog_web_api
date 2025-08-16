@@ -1,4 +1,5 @@
 use actix_web::{App, HttpServer, middleware::Logger, web};
+use migration::{Migrator, MigratorTrait};
 use sea_orm::{Database, DatabaseConnection};
 use std::env::{set_var, var_os};
 
@@ -23,12 +24,14 @@ async fn main() -> std::io::Result<()> {
     let database_url = (*utils::constants::DATABASE_URL).clone();
 
     let db: DatabaseConnection = Database::connect(database_url).await.unwrap();
+    Migrator::up(&db, None).await.unwrap();
 
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(AppState { db: db.clone() }))
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
+            .configure(routes::auth_routes::config)
     })
     .bind((address, port))?
     .run()
