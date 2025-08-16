@@ -5,6 +5,7 @@ use sea_orm::{ActiveModelTrait, Condition, EntityTrait, QueryFilter};
 use serde::{Deserialize, Serialize};
 use sha256::digest;
 
+use crate::utils::jwt::encode_jwt;
 use crate::utils::{api_response, app_state};
 
 #[derive(Serialize, Deserialize)]
@@ -57,5 +58,8 @@ pub async fn login(
         return api_response::ApiResponse::new(401, "User not found ".to_string());
     }
 
-    api_response::ApiResponse::new(200, format!("{}", user.unwrap().name))
+    let user_data = user.unwrap();
+    let token = encode_jwt(user_data.email, user_data.id).unwrap();
+
+    api_response::ApiResponse::new(200, format!("{{'token': '{}'}}", token))
 }
