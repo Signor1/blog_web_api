@@ -1,6 +1,5 @@
-use actix_web::{middleware::from_fn, web};
-
 use crate::routes::{handlers, middleware};
+use actix_web::{middleware::from_fn, web};
 
 pub fn config(config: &mut web::ServiceConfig) {
     config.service(

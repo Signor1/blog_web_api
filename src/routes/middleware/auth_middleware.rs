@@ -17,11 +17,16 @@ pub async fn check_auth_middleware(
     if auth.is_none() {
         return Err(Error::from(api_response::ApiResponse::new(
             401,
-            "Unathorized".to_string(),
+            "Unauthorized".to_string(),
         )));
     };
 
-    let token = auth.unwrap().to_str().unwrap().to_owned();
+    let token = auth
+        .unwrap()
+        .to_str()
+        .unwrap()
+        .replace("Bearer ", "")
+        .to_owned();
     let claim = decode_jwt(token).unwrap();
 
     next.call(req)
