@@ -7,7 +7,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize)]
 struct UpdateUserModel {
     name: String,
-    email: String,
 }
 
 #[get("")]
