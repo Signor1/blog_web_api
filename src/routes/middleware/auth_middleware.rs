@@ -1,5 +1,5 @@
 use actix_web::{
-    Error,
+    Error, HttpMessage,
     body::MessageBody,
     dev::{ServiceRequest, ServiceResponse},
     http::header::AUTHORIZATION,
@@ -28,6 +28,7 @@ pub async fn check_auth_middleware(
         .replace("Bearer ", "")
         .to_owned();
     let claim = decode_jwt(token).unwrap();
+    req.extensions_mut().insert(claim.claims);
 
     next.call(req)
         .await
