@@ -17,7 +17,7 @@ impl MigrationTrait for Migration {
                     .col(string(Post::Title))
                     .col(string(Post::Text))
                     .col(string(Post::Uuid).uuid().unique_key().not_null())
-                    .col(string(Post::Image))
+                    .col(string(Post::Image).null())
                     .col(integer(Post::UserId).not_null())
                     .col(date_time(Post::CreatedAt).not_null())
                     .foreign_key(

@@ -26,7 +26,8 @@ chrono = "0.4.41" # for jwt time expiration
 jsonwebtoken = "9.3.1" # for jwt configuration
 
 actix-web-lab = "0.24.2" # for middleware
-
+actix-multipart = "0.7.2" # for file uploads
+sanitize-filename = "0.6.0" # for sanitizing filenames
 
 [dependencies.uuid]
 version = "1.18.0"

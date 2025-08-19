@@ -13,7 +13,7 @@ pub async fn greet(name: web::Path<String>) -> impl Responder {
 
 #[get("/test")]
 pub async fn test(app_state: web::Data<AppState>) -> Result<ApiResponse, ApiResponse> {
-    let res = app_state
+    let _res = app_state
         .db
         .query_all(Statement::from_string(
             sea_orm::DatabaseBackend::Postgres,
