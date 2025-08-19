@@ -60,6 +60,6 @@ curl -X POST http://localhost:8080/posts/create \
 ## Environment Variables
 
 ```env
-DATABASE_URL=postgres://user:password@localhost:5432/blogdb
+DATABASE_URL=postgres://user:password@localhost:port/database-name
 JWT_SECRET=your-secret-key
 ```
